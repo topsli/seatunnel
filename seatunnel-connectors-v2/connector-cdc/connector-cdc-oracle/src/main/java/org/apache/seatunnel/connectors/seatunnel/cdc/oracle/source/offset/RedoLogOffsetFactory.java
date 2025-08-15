@@ -17,6 +17,7 @@
 
 package org.apache.seatunnel.connectors.seatunnel.cdc.oracle.source.offset;
 
+import io.debezium.jdbc.JdbcConnection;
 import org.apache.seatunnel.connectors.cdc.base.source.offset.Offset;
 import org.apache.seatunnel.connectors.cdc.base.source.offset.OffsetFactory;
 import org.apache.seatunnel.connectors.seatunnel.cdc.oracle.config.OracleSourceConfig;
@@ -24,8 +25,7 @@ import org.apache.seatunnel.connectors.seatunnel.cdc.oracle.config.OracleSourceC
 import org.apache.seatunnel.connectors.seatunnel.cdc.oracle.source.OracleDialect;
 import org.apache.seatunnel.connectors.seatunnel.cdc.oracle.utils.OracleConnectionUtils;
 
-import io.debezium.jdbc.JdbcConnection;
-
+import java.util.HashMap;
 import java.util.Map;
 
 /** An offset factory class create {@link RedoLogOffset} instance. */
@@ -68,8 +68,9 @@ public class RedoLogOffsetFactory extends OffsetFactory {
 
     @Override
     public Offset specific(String filename, Long position) {
-        throw new UnsupportedOperationException(
-                "not supported create new Offset by filename and position.");
+        Map<String, String> offset =  new HashMap<>();
+        offset.put("scn",position.toString());
+        return new RedoLogOffset(offset);
     }
 
     @Override
