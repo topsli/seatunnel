@@ -33,7 +33,10 @@ public class OracleSourceOptions {
                     Options.key(SourceOptions.STARTUP_MODE_KEY)
                             .singleChoice(
                                     StartupMode.class,
-                                    Arrays.asList(StartupMode.INITIAL, StartupMode.LATEST))
+                                    Arrays.asList(
+                                            StartupMode.INITIAL,
+                                            StartupMode.LATEST,
+                                            StartupMode.SPECIFIC))
                             .defaultValue(StartupMode.INITIAL)
                             .withDescription(
                                     "Optional startup mode for CDC source, valid enumerations are "
